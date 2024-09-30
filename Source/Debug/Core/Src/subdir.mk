@@ -8,6 +8,7 @@ C_SRCS += \
 ../Core/Src/FSM_Automatic.c \
 ../Core/Src/FSM_Manual.c \
 ../Core/Src/Global.c \
+../Core/Src/button.c \
 ../Core/Src/main.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
 ../Core/Src/stm32f1xx_it.c \
@@ -19,6 +20,7 @@ OBJS += \
 ./Core/Src/FSM_Automatic.o \
 ./Core/Src/FSM_Manual.o \
 ./Core/Src/Global.o \
+./Core/Src/button.o \
 ./Core/Src/main.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
 ./Core/Src/stm32f1xx_it.o \
@@ -30,6 +32,7 @@ C_DEPS += \
 ./Core/Src/FSM_Automatic.d \
 ./Core/Src/FSM_Manual.d \
 ./Core/Src/Global.d \
+./Core/Src/button.d \
 ./Core/Src/main.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
 ./Core/Src/stm32f1xx_it.d \
