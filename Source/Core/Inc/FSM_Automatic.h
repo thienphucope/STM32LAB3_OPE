@@ -9,9 +9,8 @@
 #define INC_FSM_AUTOMATIC_H_
 
 #include "Global.h"
-#include "main.h"
 
 void init_automatic();
-void run_automatic();
+void fsm_automatic();
 
 #endif /* INC_FSM_AUTOMATIC_H_ */

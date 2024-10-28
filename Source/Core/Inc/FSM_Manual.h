@@ -9,9 +9,8 @@
 #define INC_FSM_MANUAL_H_
 
 #include "Global.h"
-#include "main.h"
 
 void init_manual();
-void run_manual();
+void fsm_manual();
 
 #endif /* INC_FSM_MANUAL_H_ */

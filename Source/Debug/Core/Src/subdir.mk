@@ -7,38 +7,50 @@
 C_SRCS += \
 ../Core/Src/FSM_Automatic.c \
 ../Core/Src/FSM_Manual.c \
+../Core/Src/FSM_Setting.c \
 ../Core/Src/Global.c \
 ../Core/Src/button.c \
+../Core/Src/led7.c \
 ../Core/Src/main.c \
+../Core/Src/software_timer.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
 ../Core/Src/stm32f1xx_it.c \
 ../Core/Src/syscalls.c \
 ../Core/Src/sysmem.c \
-../Core/Src/system_stm32f1xx.c 
+../Core/Src/system_stm32f1xx.c \
+../Core/Src/traffic_light.c 
 
 OBJS += \
 ./Core/Src/FSM_Automatic.o \
 ./Core/Src/FSM_Manual.o \
+./Core/Src/FSM_Setting.o \
 ./Core/Src/Global.o \
 ./Core/Src/button.o \
+./Core/Src/led7.o \
 ./Core/Src/main.o \
+./Core/Src/software_timer.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
 ./Core/Src/stm32f1xx_it.o \
 ./Core/Src/syscalls.o \
 ./Core/Src/sysmem.o \
-./Core/Src/system_stm32f1xx.o 
+./Core/Src/system_stm32f1xx.o \
+./Core/Src/traffic_light.o 
 
 C_DEPS += \
 ./Core/Src/FSM_Automatic.d \
 ./Core/Src/FSM_Manual.d \
+./Core/Src/FSM_Setting.d \
 ./Core/Src/Global.d \
 ./Core/Src/button.d \
+./Core/Src/led7.d \
 ./Core/Src/main.d \
+./Core/Src/software_timer.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
 ./Core/Src/stm32f1xx_it.d \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
-./Core/Src/system_stm32f1xx.d 
+./Core/Src/system_stm32f1xx.d \
+./Core/Src/traffic_light.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

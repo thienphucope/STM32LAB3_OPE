@@ -1,2 +1,2 @@
-FSM_Automatic.c:11:6:init_automatic	4	static
-FSM_Automatic.c:15:6:run_automatic	4	static
+FSM_Automatic.c:11:6:init_automatic	8	static
+FSM_Automatic.c:23:6:fsm_automatic	8	static

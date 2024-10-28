@@ -1,0 +1,9 @@
+traffic_light.c:11:6:EW_RED	8	static
+traffic_light.c:16:6:EW_YELLOW	8	static
+traffic_light.c:21:6:EW_GREEN	8	static
+traffic_light.c:26:6:NS_RED	8	static
+traffic_light.c:31:6:NS_YELLOW	8	static
+traffic_light.c:36:6:NS_GREEN	8	static
+traffic_light.c:41:6:BLINK_RED	8	static
+traffic_light.c:46:6:BLINK_YELLOW	8	static
+traffic_light.c:51:6:BLINK_GREEN	8	static
