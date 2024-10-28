@@ -15,18 +15,16 @@ void fsm_setting() {
 				BLINK_RED();
 			}
 
-
-
 			if(isButtonPressed(1) == 1) {
 				NS++;
-				if(NS>19) NS = 0;
+				if(NS>=100) NS = 1;
 				updatebuffer();
 			}
 
 			if(isButtonPressed(2) == 1) {
 				redtime = NS;
-				yellowtime = redtime * 10 / 100;
-				if (yellowtime > 3) yellowtime = 3;
+				yellowtime = redtime / 10;
+				if (yellowtime <=0) yellowtime = 1;
 				greentime = redtime - yellowtime;
 			}
 			break;
@@ -37,17 +35,16 @@ void fsm_setting() {
 				BLINK_YELLOW();
 			}
 
-
 			if(isButtonPressed(1) == 1) {
 				NS++;
-				if (NS > 98) NS = 0;
+				if (NS >= 100) NS = 1;
 				updatebuffer();
 			}
 
 			if(isButtonPressed(2) == 1) {
 				yellowtime = NS;
-				redtime = yellowtime * 100 / 10;
-				if (redtime > 99) redtime = 99;
+				redtime = yellowtime * 10;
+				if (redtime >= 100) redtime = 99;
 				greentime = redtime - yellowtime;
 			}
 			break;
@@ -61,14 +58,14 @@ void fsm_setting() {
 
 			if(isButtonPressed(1) == 1) {
 				NS++;
-				if (NS > 98) NS = 0;
+				if (NS >= 100) NS = 1;
 				updatebuffer();
 			}
 
 			if(isButtonPressed(2) == 1) {
 				greentime = NS;
-				redtime = redtime * 100 / 90;
-				if (redtime > 99) redtime = 99;
+				redtime = greentime * 10 / 9;
+				if (redtime >= 100) redtime = 99;
 				yellowtime = redtime - greentime;
 			}
 			break;

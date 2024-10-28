@@ -17,28 +17,21 @@ void init_automatic(){
 
 }
 
-// create switch case (status)
-// if (timer_flag) -> chuyern trang thai tu dong
-// if (button_flag) -> chuyern sang manual { status = manual_status(green_red) ; reset button_flag = 0 khong thi nos chay tiep setTimer2(10000) ve trang thai auto}
 void fsm_automatic(){
 	switch(status){
 	case AUTO_INIT:
 		init_automatic();
 		break;
 	case AUTO_RED_GREEN:
-		//LED
 		EW_RED();
 		NS_GREEN();
-		//LED7
+
 		if (timer_flag[1] == 1){
 			setTimer(1, 100);
 			EW--; NS--;
 
 		}
 
-
-
-		//CONDITION
 		if (NS < 0) {
 			status = AUTO_RED_YELLOW;
 			NS = yellowtime - 1;

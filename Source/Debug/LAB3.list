@@ -37,11 +37,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  000171b2  00000000  00000000  0002cf28  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000e3b9  00000000  00000000  000440da  2**0
+ 17 .debug_line   0000e3b8  00000000  00000000  000440da  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000824b8  00000000  00000000  00052493  2**0
+ 18 .debug_str    000824b8  00000000  00000000  00052492  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000d494b  2**0
+ 19 .comment      00000053  00000000  00000000  000d494a  2**0
                   CONTENTS, READONLY
  20 .debug_frame  00002934  00000000  00000000  000d49a0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -120,9 +120,6 @@ void init_automatic(){
 
 08000190 <fsm_automatic>:
 
-// create switch case (status)
-// if (timer_flag) -> chuyern trang thai tu dong
-// if (button_flag) -> chuyern sang manual { status = manual_status(green_red) ; reset button_flag = 0 khong thi nos chay tiep setTimer2(10000) ve trang thai auto}
 void fsm_automatic(){
  8000190:	b580      	push	{r7, lr}
  8000192:	af00      	add	r7, sp, #0
@@ -144,12 +141,11 @@ void fsm_automatic(){
 		break;
  80001bc:	e0c3      	b.n	8000346 <fsm_automatic+0x1b6>
 	case AUTO_RED_GREEN:
-		//LED
 		EW_RED();
  80001be:	f001 f801 	bl	80011c4 <EW_RED>
 		NS_GREEN();
  80001c2:	f001 f871 	bl	80012a8 <NS_GREEN>
-		//LED7
+
 		if (timer_flag[1] == 1){
  80001c6:	4b62      	ldr	r3, [pc, #392]	; (8000350 <fsm_automatic+0x1c0>)
  80001c8:	685b      	ldr	r3, [r3, #4]
@@ -170,11 +166,9 @@ void fsm_automatic(){
  80001e4:	3b01      	subs	r3, #1
  80001e6:	4a5c      	ldr	r2, [pc, #368]	; (8000358 <fsm_automatic+0x1c8>)
  80001e8:	6013      	str	r3, [r2, #0]
+
 		}
 
-
-
-		//CONDITION
 		if (NS < 0) {
  80001ea:	4b5b      	ldr	r3, [pc, #364]	; (8000358 <fsm_automatic+0x1c8>)
  80001ec:	681b      	ldr	r3, [r3, #0]
@@ -727,13 +721,13 @@ void fsm_setting() {
  8000582:	3301      	adds	r3, #1
  8000584:	4a60      	ldr	r2, [pc, #384]	; (8000708 <fsm_setting+0x1c8>)
  8000586:	6013      	str	r3, [r2, #0]
-				if(NS>19) NS = 0;
+				if(NS>=100) NS = 1;
  8000588:	4b5f      	ldr	r3, [pc, #380]	; (8000708 <fsm_setting+0x1c8>)
  800058a:	681b      	ldr	r3, [r3, #0]
- 800058c:	2b13      	cmp	r3, #19
+ 800058c:	2b63      	cmp	r3, #99	; 0x63
  800058e:	dd02      	ble.n	8000596 <fsm_setting+0x56>
  8000590:	4b5d      	ldr	r3, [pc, #372]	; (8000708 <fsm_setting+0x1c8>)
- 8000592:	2200      	movs	r2, #0
+ 8000592:	2201      	movs	r2, #1
  8000594:	601a      	str	r2, [r3, #0]
 				updatebuffer();
  8000596:	f000 fbc5 	bl	8000d24 <updatebuffer>
@@ -748,7 +742,7 @@ void fsm_setting() {
  80005aa:	681b      	ldr	r3, [r3, #0]
  80005ac:	4a57      	ldr	r2, [pc, #348]	; (800070c <fsm_setting+0x1cc>)
  80005ae:	6013      	str	r3, [r2, #0]
-				yellowtime = redtime * 10 / 100;
+				yellowtime = redtime / 10;
  80005b0:	4b56      	ldr	r3, [pc, #344]	; (800070c <fsm_setting+0x1cc>)
  80005b2:	681b      	ldr	r3, [r3, #0]
  80005b4:	4a56      	ldr	r2, [pc, #344]	; (8000710 <fsm_setting+0x1d0>)
@@ -758,13 +752,13 @@ void fsm_setting() {
  80005be:	1ad3      	subs	r3, r2, r3
  80005c0:	4a54      	ldr	r2, [pc, #336]	; (8000714 <fsm_setting+0x1d4>)
  80005c2:	6013      	str	r3, [r2, #0]
-				if (yellowtime > 3) yellowtime = 3;
+				if (yellowtime <=0) yellowtime = 1;
  80005c4:	4b53      	ldr	r3, [pc, #332]	; (8000714 <fsm_setting+0x1d4>)
  80005c6:	681b      	ldr	r3, [r3, #0]
- 80005c8:	2b03      	cmp	r3, #3
- 80005ca:	dd02      	ble.n	80005d2 <fsm_setting+0x92>
+ 80005c8:	2b00      	cmp	r3, #0
+ 80005ca:	dc02      	bgt.n	80005d2 <fsm_setting+0x92>
  80005cc:	4b51      	ldr	r3, [pc, #324]	; (8000714 <fsm_setting+0x1d4>)
- 80005ce:	2203      	movs	r2, #3
+ 80005ce:	2201      	movs	r2, #1
  80005d0:	601a      	str	r2, [r3, #0]
 				greentime = redtime - yellowtime;
  80005d2:	4b4e      	ldr	r3, [pc, #312]	; (800070c <fsm_setting+0x1cc>)
@@ -799,13 +793,13 @@ void fsm_setting() {
  8000606:	3301      	adds	r3, #1
  8000608:	4a3f      	ldr	r2, [pc, #252]	; (8000708 <fsm_setting+0x1c8>)
  800060a:	6013      	str	r3, [r2, #0]
-				if (NS > 98) NS = 0;
+				if (NS >= 100) NS = 1;
  800060c:	4b3e      	ldr	r3, [pc, #248]	; (8000708 <fsm_setting+0x1c8>)
  800060e:	681b      	ldr	r3, [r3, #0]
- 8000610:	2b62      	cmp	r3, #98	; 0x62
+ 8000610:	2b63      	cmp	r3, #99	; 0x63
  8000612:	dd02      	ble.n	800061a <fsm_setting+0xda>
  8000614:	4b3c      	ldr	r3, [pc, #240]	; (8000708 <fsm_setting+0x1c8>)
- 8000616:	2200      	movs	r2, #0
+ 8000616:	2201      	movs	r2, #1
  8000618:	601a      	str	r2, [r3, #0]
 				updatebuffer();
  800061a:	f000 fb83 	bl	8000d24 <updatebuffer>
@@ -820,7 +814,7 @@ void fsm_setting() {
  800062c:	681b      	ldr	r3, [r3, #0]
  800062e:	4a39      	ldr	r2, [pc, #228]	; (8000714 <fsm_setting+0x1d4>)
  8000630:	6013      	str	r3, [r2, #0]
-				redtime = yellowtime * 100 / 10;
+				redtime = yellowtime * 10;
  8000632:	4b38      	ldr	r3, [pc, #224]	; (8000714 <fsm_setting+0x1d4>)
  8000634:	681a      	ldr	r2, [r3, #0]
  8000636:	4613      	mov	r3, r2
@@ -830,7 +824,7 @@ void fsm_setting() {
  800063e:	461a      	mov	r2, r3
  8000640:	4b32      	ldr	r3, [pc, #200]	; (800070c <fsm_setting+0x1cc>)
  8000642:	601a      	str	r2, [r3, #0]
-				if (redtime > 99) redtime = 99;
+				if (redtime >= 100) redtime = 99;
  8000644:	4b31      	ldr	r3, [pc, #196]	; (800070c <fsm_setting+0x1cc>)
  8000646:	681b      	ldr	r3, [r3, #0]
  8000648:	2b63      	cmp	r3, #99	; 0x63
@@ -871,13 +865,13 @@ void fsm_setting() {
  8000686:	3301      	adds	r3, #1
  8000688:	4a1f      	ldr	r2, [pc, #124]	; (8000708 <fsm_setting+0x1c8>)
  800068a:	6013      	str	r3, [r2, #0]
-				if (NS > 98) NS = 0;
+				if (NS >= 100) NS = 1;
  800068c:	4b1e      	ldr	r3, [pc, #120]	; (8000708 <fsm_setting+0x1c8>)
  800068e:	681b      	ldr	r3, [r3, #0]
- 8000690:	2b62      	cmp	r3, #98	; 0x62
+ 8000690:	2b63      	cmp	r3, #99	; 0x63
  8000692:	dd02      	ble.n	800069a <fsm_setting+0x15a>
  8000694:	4b1c      	ldr	r3, [pc, #112]	; (8000708 <fsm_setting+0x1c8>)
- 8000696:	2200      	movs	r2, #0
+ 8000696:	2201      	movs	r2, #1
  8000698:	601a      	str	r2, [r3, #0]
 				updatebuffer();
  800069a:	f000 fb43 	bl	8000d24 <updatebuffer>
@@ -892,20 +886,21 @@ void fsm_setting() {
  80006ac:	681b      	ldr	r3, [r3, #0]
  80006ae:	4a1a      	ldr	r2, [pc, #104]	; (8000718 <fsm_setting+0x1d8>)
  80006b0:	6013      	str	r3, [r2, #0]
-				redtime = redtime * 100 / 90;
- 80006b2:	4b16      	ldr	r3, [pc, #88]	; (800070c <fsm_setting+0x1cc>)
- 80006b4:	681b      	ldr	r3, [r3, #0]
- 80006b6:	2264      	movs	r2, #100	; 0x64
- 80006b8:	fb02 f303 	mul.w	r3, r2, r3
- 80006bc:	4a17      	ldr	r2, [pc, #92]	; (800071c <fsm_setting+0x1dc>)
- 80006be:	fb82 1203 	smull	r1, r2, r2, r3
- 80006c2:	441a      	add	r2, r3
- 80006c4:	1192      	asrs	r2, r2, #6
+				redtime = greentime * 10 / 9;
+ 80006b2:	4b19      	ldr	r3, [pc, #100]	; (8000718 <fsm_setting+0x1d8>)
+ 80006b4:	681a      	ldr	r2, [r3, #0]
+ 80006b6:	4613      	mov	r3, r2
+ 80006b8:	009b      	lsls	r3, r3, #2
+ 80006ba:	4413      	add	r3, r2
+ 80006bc:	005b      	lsls	r3, r3, #1
+ 80006be:	4a17      	ldr	r2, [pc, #92]	; (800071c <fsm_setting+0x1dc>)
+ 80006c0:	fb82 1203 	smull	r1, r2, r2, r3
+ 80006c4:	1052      	asrs	r2, r2, #1
  80006c6:	17db      	asrs	r3, r3, #31
  80006c8:	1ad3      	subs	r3, r2, r3
  80006ca:	4a10      	ldr	r2, [pc, #64]	; (800070c <fsm_setting+0x1cc>)
  80006cc:	6013      	str	r3, [r2, #0]
-				if (redtime > 99) redtime = 99;
+				if (redtime >= 100) redtime = 99;
  80006ce:	4b0f      	ldr	r3, [pc, #60]	; (800070c <fsm_setting+0x1cc>)
  80006d0:	681b      	ldr	r3, [r3, #0]
  80006d2:	2b63      	cmp	r3, #99	; 0x63
@@ -946,7 +941,7 @@ void fsm_setting() {
  8000710:	66666667 	.word	0x66666667
  8000714:	20000008 	.word	0x20000008
  8000718:	2000000c 	.word	0x2000000c
- 800071c:	b60b60b7 	.word	0xb60b60b7
+ 800071c:	38e38e39 	.word	0x38e38e39
 
 08000720 <isButtonPressed>:
 int button_pressed[3] = {0, 0, 0};
