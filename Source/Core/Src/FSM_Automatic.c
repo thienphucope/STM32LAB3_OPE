@@ -36,7 +36,7 @@ void fsm_automatic(){
 			status = AUTO_RED_YELLOW;
 			NS = yellowtime - 1;
 
-			setTimer(0, yellowtime * 100);
+			//setTimer(0, yellowtime * 100);
 		}
 		break;
 	case AUTO_RED_YELLOW:
@@ -54,7 +54,7 @@ void fsm_automatic(){
 			EW = greentime - 1;
 			NS = redtime - 1;
 
-			setTimer(0, greentime * 100);
+			//setTimer(0, greentime * 100);
 		}
 		break;
 	case AUTO_GREEN_RED:
@@ -74,7 +74,7 @@ void fsm_automatic(){
 			status = AUTO_YELLOW_RED;
 			EW = yellowtime - 1;
 
-			setTimer(0, yellowtime * 100);
+			//setTimer(0, yellowtime * 100);
 
 		}
 		break;
@@ -94,7 +94,7 @@ void fsm_automatic(){
 			EW = redtime - 1;
 			NS = greentime - 1;
 
-			setTimer(0, greentime * 100);
+			//setTimer(0, greentime * 100);
 		}
 		break;
 
